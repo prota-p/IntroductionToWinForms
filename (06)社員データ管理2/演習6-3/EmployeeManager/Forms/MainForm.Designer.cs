@@ -40,6 +40,7 @@
             employeeDataGridView.Location = new Point(12, 45);
             employeeDataGridView.Name = "employeeDataGridView";
             employeeDataGridView.ReadOnly = true;
+            employeeDataGridView.RowHeadersWidth = 62;
             employeeDataGridView.Size = new Size(614, 364);
             employeeDataGridView.TabIndex = 4;
             // 
@@ -49,6 +50,7 @@
             searchBox.Name = "searchBox";
             searchBox.Size = new Size(100, 23);
             searchBox.TabIndex = 5;
+            searchBox.TextChanged += searchCondition_Changed;
             // 
             // fromDatePicker
             // 
