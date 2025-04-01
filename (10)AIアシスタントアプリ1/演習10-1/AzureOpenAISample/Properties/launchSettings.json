@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "AzureOpenAISample": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "AZURE_OPENAI_ENDPOINT": "https://【★要追記】.cognitiveservices.azure.com",
+        "AZURE_OPENAI_KEY": "【★要追記】",
+        "AZURE_OPENAI_DEPLOYMENT_NAME": "【★要追記】"
+      }
+    }
+  }
+}
