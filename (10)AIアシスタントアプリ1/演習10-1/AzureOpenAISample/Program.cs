@@ -54,8 +54,6 @@ namespace AzureOpenAISample
                 if (string.IsNullOrEmpty(userInput) || userInput.ToLower() == "exit")
                     break;
 
-                SystemChatMessage systemMessage = new SystemChatMessage(userInput);
-
                 // ユーザーメッセージを履歴に追加
                 conversationMessages.Add(new UserChatMessage(userInput));
 
