@@ -1,0 +1,57 @@
+﻿@using WinFormsBlazorApp.Services
+@inject IChatService ChatService
+
+<div class="container-fluid d-flex flex-column vh-100 p-3">
+    <h3>シンプルAIチャット</h3>
+    <div class="border rounded p-3 mb-3 flex-grow-1" style="overflow-y: auto;">
+        @foreach (var message in chatHistory)
+        {
+            <div class="@(message.IsUser ? "text-end" : "text-start") mb-2">
+                <span class="badge @(message.IsUser ? "bg-primary" : "bg-secondary") p-2 text-wrap"
+                      style="max-width: 80%; display: inline-block; text-align: left;">
+                    @if (message.IsUser)
+                    {
+                        @message.Text
+                    }
+                    else
+                    {
+                        @((MarkupString)message.Text.Replace("\n", "<br>"))
+                    }
+                </span>
+            </div>
+        }
+    </div>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="メッセージを入力..."
+               @bind="currentMessage" @bind:event="oninput" @onkeypress="@(async e => { if (e.Key == "Enter") await SendMessageAsync(); })" />
+        <button class="btn btn-primary" @onclick="SendMessageAsync">送信</button>
+    </div>
+</div>
+@code {
+    private List<ChatMessage> chatHistory = new List<ChatMessage>();
+    private string currentMessage = string.Empty;
+    private async Task SendMessageAsync()
+    {
+        if (string.IsNullOrWhiteSpace(currentMessage))
+            return;
+
+        string userMessage = currentMessage;
+        currentMessage = string.Empty;
+
+        // ユーザーメッセージをチャット履歴に追加
+        chatHistory.Add(new ChatMessage { Text = userMessage, IsUser = true });
+
+        // ChatServiceを使用して応答を取得
+        var response = await ChatService.SendMessageAsync(userMessage);
+
+        // ボットの応答をチャット履歴に追加
+        chatHistory.Add(new ChatMessage { Text = response, IsUser = false });
+    }
+
+    // シンプルなチャットメッセージのモデルクラス
+    private class ChatMessage
+    {
+        public string Text { get; set; } = string.Empty;
+        public bool IsUser { get; set; }
+    }
+}
