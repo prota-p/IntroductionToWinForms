@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "WinFormsBlazorApp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "AZURE_OPENAI_ENDPOINT": "★要記載",
+        "AZURE_OPENAI_KEY": "★要記載",
+        "AZURE_OPENAI_DEPLOYMENT_NAME": "★要記載"
+      }
+    }
+  }
+}
